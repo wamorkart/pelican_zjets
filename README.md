@@ -11,3 +11,4 @@ Using the PELICAN architecture with ATLAS Z+jets data
 | Pseudodata | WithTracks_ZjetOmnifold_Aug5_PseudoDataSRew_Apr8_1_All.root|
 | Truth Pseudodata | WithTracks_TruthPseudodata_Combined_1-18.root|
 
+2. Create final HDF5 files with the format expected by PELICAN / LorentzNet. We do this with the help of the conversion process developed in [LorentzGroupNetwork](https://github.com/fizisist/LorentzGroupNetwork#1-converting-the-dataset).

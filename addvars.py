@@ -16,7 +16,8 @@ from tqdm.notebook import tqdm
 import h5py
 
 def pad_array(arr, max_tracks):
-    arr = ak.pad_none(arr, max_tracks, axis=1, clip=True)
+    # arr = ak.pad_none(arr, max_tracks, axis=1, clip=True)
+    arr = ak.pad_none(arr, 400, axis=1, clip=True)
     arr = ak.to_numpy(ak.fill_none(arr, 0, axis=1))    
     return arr
 
@@ -85,8 +86,8 @@ def convert_to_h5(f_in, f_out, f_type):
     # is_signal = pd.Series(np.ones(len(df)))
     # df["is_signal"] = np.ones(len(df))
     if (f_type=="mc"):
-        df["is_signal"] = np.ones(len(df))
-    else:    df["is_signal"] = np.zeros(len(df))
+        df["is_signal"] = np.zeros(len(df))
+    else:    df["is_signal"] = np.ones(len(df))
     # result = [df, is_signal]
 
     # result_df = pd.concat(result)

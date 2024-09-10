@@ -29,13 +29,21 @@ def add_track_df(track_arr, label, df):
 
     # return track_i    
 
-def convert_to_h5(f_in, f_out, f_type):
+def convert_to_h5(f_in, f_out, f_type, out_dir):
     f_in = uproot.open(f_in)
     tree_in = f_in['OmniTree']
-
+    # print(len(ak.to_numpy(tree_in['pass190'].array())))
+     
     pass190_mc = ak.to_numpy(tree_in['pass190'].array())
     flag_190 = pass190_mc
 
+    # Pass 190 flags
+    pass190_mc = ak.to_numpy(tree_in['pass190'].array())
+    print("We have a fraction {} of good events in mc".format(np.sum(pass190_mc) / len(pass190_mc)))
+    print(len(pass190_mc))
+    print(np.sum(pass190_mc))
+
+    # print(np.sum(pass190_mc))
     l1_pt = ak.unflatten(tree_in["pT_l1"].array(), 1, axis=0)
     l1_eta = ak.unflatten(tree_in["eta_l1"].array(), 1, axis=0)
     l1_phi = ak.unflatten(tree_in["phi_l1"].array(), 1, axis=0)
@@ -43,6 +51,11 @@ def convert_to_h5(f_in, f_out, f_type):
     l1_py = l1_pt*np.sin(l1_phi)
     l1_pz = l1_pt*np.sinh(l1_eta)
     l1_e = np.sqrt(l1_px**2+l1_py**2+l1_pz**2)
+
+    # print(ak.flatten(l1_pt[flag_190 == True, ...]))
+    # print(tree_in["weight"].array())
+
+    
 
     l2_pt = ak.unflatten(tree_in["pT_l2"].array(), 1, axis=0)
     l2_eta = ak.unflatten(tree_in["eta_l2"].array(), 1, axis=0)
@@ -59,6 +72,8 @@ def convert_to_h5(f_in, f_out, f_type):
     tracks_eta = tracks_eta[flag_190 == True,...]
     tracks_phi = tracks_phi[flag_190 == True,...]
 
+    # print(len(tracks_pt[pass190_mc == 1]))
+
     tracks_px = tracks_pt*np.cos(tracks_phi)
     tracks_py = tracks_pt*np.sin(tracks_phi)
     tracks_pz = tracks_pt*np.sinh(tracks_eta)
@@ -72,12 +87,31 @@ def convert_to_h5(f_in, f_out, f_type):
     tracks_py = pad_array(tracks_py, max_tracks)
     tracks_pz = pad_array(tracks_pz, max_tracks)
 
+    weight = tree_in["weight"].array()
+
     df = ak.to_dataframe({"E_0": ak.flatten(l1_e[flag_190 == True, ...]),"PX_0": ak.flatten(l1_px[flag_190 == True, ...]), "PY_0": ak.flatten(l1_py[flag_190 == True, ...]), "PZ_0": ak.flatten(l1_pz[flag_190 == True, ...])} )
+    # df["pt_0"] =  ak.flatten(l1_pt[flag_190 == True, ...])
+    # df["eta_0"] =  ak.flatten(l1_eta[flag_190 == True, ...])
+    # df["phi_0"] =  ak.flatten(l1_phi[flag_190 == True, ...])
     df["E_1"] = ak.flatten(l2_e[flag_190 == True, ...])
     df["PX_1"] = ak.flatten(l2_px[flag_190 == True, ...])
     df["PY_1"] = ak.flatten(l2_py[flag_190 == True, ...])
     df["PZ_1"] = ak.flatten(l2_pz[flag_190 == True, ...])
+    # df["pt_1"] =  ak.flatten(l2_pt[flag_190 == True, ...])
+    # df["eta_1"] =  ak.flatten(l2_eta[flag_190 == True, ...])
+    # df["phi_1"] =  ak.flatten(l2_phi[flag_190 == True, ...])
+   
+    # df["weight"] = weight[flag_190 == True, ...]
 
+
+    print(f"dataframe length: {len(df)}")
+
+
+
+    # df["pt_1"] = 
+    # df["eta_1"] = 
+    # df["phi_1"] = 
+    
     add_track_df(tracks_e, "E", df)
     add_track_df(tracks_px, "PX", df)
     add_track_df(tracks_py, "PY", df)
@@ -94,14 +128,17 @@ def convert_to_h5(f_in, f_out, f_type):
 
     # print(result_df)
     print(df.shape)
-    df.to_hdf(f"{f_out}.h5", key='table')    
+    if not os.path.exists(out_dir):
+         os.makedirs(out_dir)
+    df.to_hdf(f"{out_dir}/{f_out}.h5", key='table')    
 
 def main(args):
 
         f_in = str(sys.argv[1])
         f_out = str(sys.argv[2])
         f_type = str(sys.argv[3])
-        convert_to_h5(f_in, f_out, f_type)
+        out_dir = str(sys.argv[4])
+        convert_to_h5(f_in, f_out, f_type, out_dir)
         return 
 
 if __name__ == "__main__":

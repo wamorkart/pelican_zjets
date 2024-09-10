@@ -31,8 +31,8 @@ def split_h5_file_by_entries(input_file, output_prefix, split_sizes):
             start_idx = end_idx
 
 # Example usage
-input_file = '/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzNet-release/data/zjets_14082024/pd_combined.h5'  # Path to your input HDF5 file
-output_prefix = 'pd'  # Prefix for the output files
-split_sizes = [144000, 48000, 48000]  # Sizes for each split
+input_file = '/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzNet-release/data/combinedfiles/trainmc_combined_v2.h5'  # Path to your input HDF5 file
+output_prefix = 'trainmc'  # Prefix for the output files
+split_sizes = [928120, 232030]#, 49450]  # Sizes for each split
 
 split_h5_file_by_entries(input_file, output_prefix, split_sizes)

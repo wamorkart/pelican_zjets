@@ -80,7 +80,7 @@ def concatN(list_of_files, output_name = 'out.h5', comp_level = 5, debug = False
     os.rename(tempname,output_name)
 
 
-files_pd = [f"/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzGroupNetwork/data/toptag/conversion/raw2h5/utils/condor/pd_chunk_{i}_c_14082024.h5" for i in range(1, 49)]
+files_pd = [f"/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzGroupNetwork/data/toptag/conversion/raw2h5/utils/condor/pd_chunk_{i}_c_14082024.h5" for i in range(1, 51)]
 files_testmc = [f"/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzGroupNetwork/data/toptag/conversion/raw2h5/utils/condor/testmc_chunk_{i}_c_14082024.h5" for i in range(1, 77)]
 files_trainmc = [f"/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzGroupNetwork/data/toptag/conversion/raw2h5/utils/condor/trainmc_chunk_{i}_c_14082024.h5" for i in range(1, 233)]
 
@@ -90,14 +90,14 @@ files_trainmc = [f"/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzGroupN
 # files_valid = ["/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzGroupNetwork/data/toptag/conversion/raw2h5/utils/condor/pd_chunk_6_c.h5", "/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzGroupNetwork/data/toptag/conversion/raw2h5/utils/condor/trainmc_chunk_5_c.h5" ]
 
 files_train = ["/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/pelican_zjets/scripts/trainmc_part0.h5", "/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/pelican_zjets/scripts/pd_part0.h5"]
-files_test = ["/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzNet-release/data/zjets_14082024/testmc_combined.h5", "/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/pelican_zjets/scripts/pd_part1.h5"]
+files_test = ["/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzNet-release/data/combinedfiles/testmc_combined_v2.h5", "/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/pelican_zjets/scripts/pd_part1.h5"]
 files_valid = ["/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/pelican_zjets/scripts/trainmc_part1.h5", "/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/pelican_zjets/scripts/pd_part2.h5"]
 
-#concatN([x for x in files_pd], "/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzNet-release/data/zjets_14082024/pd_combined.h5", debug=True)
+# concatN([x for x in files_pd], "/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzNet-release/data/zjets_14082024/pd_combined_new.h5", debug=True)
 #concatN([x for x in files_testmc], "/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzNet-release/data/zjets_14082024/testmc_combined.h5", debug=True)
 # concatN([x for x in files_trainmc], "/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzNet-release/data/zjets_14082024/trainmc_combined.h5", debug=True)
 
-# concatN([x for x in files_train], "/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzNet-release/data/zjets_14082024/train_c.h5")
-# concatN([x for x in files_test], "/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzNet-release/data/zjets_14082024/test_c.h5")
-concatN([x for x in files_valid], "/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzNet-release/data/zjets_14082024/valid_c.h5")
+# concatN([x for x in files_train], "/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzNet-release/data/zjets_21082024/train_c.h5")
+concatN([x for x in files_test], "/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzNet-release/data/zjets_21082024/test_c.h5")
+# concatN([x for x in files_valid], "/global/cfs/cdirs/m3246/twamorka/omnifold_atlas/LorentzNet-release/data/zjets_21082024/valid_c.h5")
 
